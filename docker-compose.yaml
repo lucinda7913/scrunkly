@@ -1,20 +1,9 @@
-version: "3.7"
+version: '3'
 
 services:
-  webserver:
-    image: nginx
-    restart: always
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
     volumes:
       - ./src:/usr/share/nginx/html
-    labels:
-      - traefik.http.routers.katyweb.rule=Host(`katy.modem.network`)
-      - traefik.http.routers.katyweb.entrypoints=websecure
-      - traefik.http.services.katyweb.loadbalancer.server.port=80
-      - traefik.http.services.katyweb.loadbalancer.server.scheme=http
-      - traefik.http.routers.katyweb.tls=true
-    networks:
-      web:
-    
-networks:
-  web:
-    external: true
